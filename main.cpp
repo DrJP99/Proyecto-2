@@ -16,14 +16,16 @@ int main()
     char tipo, menu;
     int id, numPag, duracion, iX, iY;
     string titulo, autor, os;
-    libro l;
-    disco d;
-    software s;
     int dia, mes, ano, idMat, idClient;
     fecha f1, fReservacion;
     bool check;
     int idC, idM;
 
+    for(iX = 0; iX < 50; iX++)
+    {
+        fecha f;
+        res[iX] = new reserva(-1, -1, f);
+    }
 
     inMaterial.open("Material.txt");
     iX = 0;
@@ -71,12 +73,14 @@ int main()
         cout << "d) Consultar reservaciones de una Fecha Dada" << endl;
         cout << "e) Hacer una Reservacion" << endl;
         cout << "f) Terminar" << endl << endl;
+
         cin >> menu;
+
         switch(menu)
         {
             case 'a':
             case 'A':
-                for(iX = 0; iX < 20; iX-=-1)
+                for(iX = 0; iX < 20; iX++)
                 {
                     mat[iX] -> muestraDatos();
                     cout << endl;
@@ -84,15 +88,16 @@ int main()
                 break;
             case 'b':
             case 'B':
-                for(iX = 0; iX < 50 && (res[iX] -> getidMaterial()) != -1; iX-=-1)
+                for(iX = 0; (iX < 50) && ((res[iX] -> getidMaterial()) != -1); iX++)
                 {
                     res[iX] -> toString();
                     cout << endl;
                 }
+
                 break;
             case 'c':
             case 'C':
-                for(iX = 0; iX < 50 && (res[iX] -> getidMaterial()) != -1; iX-=-1)
+                for(iX = 0; iX < 50 && (res[iX] -> getidMaterial()) != -1; iX++)
                 {
                     for(iY = 0; iY < 20; iY-=-1)
                     {
@@ -104,6 +109,7 @@ int main()
                         }
                     }
                 }
+                break;
             case 'd':
             case 'D':
                 check = false;
@@ -150,17 +156,19 @@ int main()
                     }
                 } while(!check);
                 cout << "Ingresa la Fecha en que deseas Reservar: " << endl;
-                check = true;
                 do {
+                    check = true;
                     cin >> fReservacion;
                     for(iX = 0; iX < 50 && (res[iX] -> getidMaterial()) != -1 && check; iX++)
                     {
-                        cout << res[iX] -> getidMaterial();
-                        if(idM == res[iX] -> getidMaterial())
+                        for(iY = 0; iY < 20; iY++)
                         {
-                            if(fReservacion >= (res[iX] -> getFechaReserva()) && fReservacion <= (res[iX] -> calculaFechaFinReserva(mat[iY] -> cantidadDiasPrestamo())))
+                            if(idM == res[iX] -> getidMaterial())
                             {
-                                check = false;
+                                if(fReservacion >= (res[iX] -> getFechaReserva()) && fReservacion <= (res[iX] -> calculaFechaFinReserva(mat[iY] -> cantidadDiasPrestamo())))
+                                {
+                                    check = false;
+                                }
                             }
                         }
                     }
@@ -168,13 +176,22 @@ int main()
                     {
                         cout << "Este Material ya esta Reservado en esa Fecha, elije una diferente: " << endl;
                     }
+                    else
+                    {
+                        for(iX = 0; res[iX] -> getidMaterial() != -1; iX++);
+                        res[iX] = new reserva(idM, idC, fReservacion);
+                        cout << "Reservacion hecha exitosamente!" << endl;
+                    }
                 } while(!check);
                 break;
             case 'f':
             case 'F':
                 break;
         }
-    } while(menu != 'f' || menu != 'F');
+
+        cout << endl;
+
+    } while(menu != 'f' && menu != 'F');
 
 
     return 0;

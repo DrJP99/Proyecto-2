@@ -26,7 +26,7 @@ public:
 
 reserva::reserva()
 {
-    fecha f1(1, 1, 1);
+    fecha f1;
     idMaterial = -1;
     idCliente = -1;
     fechaReserva = f1;
