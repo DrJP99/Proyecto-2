@@ -91,6 +91,8 @@ int main()
                 for(iX = 0; (iX < 50) && ((res[iX] -> getidMaterial()) != -1); iX++)
                 {
                     res[iX] -> toString();
+                    for(iY = 0; res[iX] -> getidMaterial() != mat[iY] -> getId(); iY++);
+                    cout << "Titulo: " << mat[iY] -> getTitulo() << endl;
                     cout << endl;
                 }
 
