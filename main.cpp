@@ -91,7 +91,8 @@ int main()
                 for(iX = 0; (iX < 50) && ((res[iX] -> getidMaterial()) != -1); iX++)
                 {
                     res[iX] -> toString();
-                    for(iY = 0; res[iX] -> getidMaterial() != mat[iY] -> getId(); iY++);
+                    for(iY = 0; res[iX] -> getidMaterial() != mat[iY] -> getId(); iY++);\
+                    cout << "Fin de Reserva: " << res[iX] -> calculaFechaFinReserva(mat[iY] -> cantidadDiasPrestamo()) << endl;
                     cout << "Titulo: " << mat[iY] -> getTitulo() << endl;
                     cout << endl;
                 }
